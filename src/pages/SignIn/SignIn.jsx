@@ -9,27 +9,20 @@ import { AuthContext } from '../../providers/AuthProvider';
 
 const SignIn = () => {
 
-    const { signIn, handleLoading } = useContext(AuthContext);
+    const { signIn } = useContext(AuthContext);
     const [loginError, setLoginError] = useState('');
     const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = (data) => {
         setLoginError('');
-        handleLoading(false)
+      
         console.log(data);
-        signIn(data)
-            .then(res => {
-                console.log(res);
-                if (res.status === 401) {
-                    setLoginError('user not found')
-                    console.log('user not found');
-                }
-                else {
-                    // navigate(res.url)
-                   /*  const url = new URL(res.url);
-                    navigate(url.pathname) */
-                    // console.log(data);
-                }
+        signIn(data?.email, data?.password)
+            .then(() => {
+                navigate('/')
+            })
+            .catch(error => {
+                setLoginError(error?.message);
             })
 
     }
@@ -47,15 +40,15 @@ const SignIn = () => {
                     <h3 className='text-[38px] lg:text-[51px] font-bold'>Please Login</h3>
                     <p className='lg:text-[22px] pb-[40px] pt-[20px] leading-8'>Welcome back start from where you left</p>
 
-                    {/* user name */}
+                    {/* user email */}
                     <div className=' mt-4 bg-white text-black pt-3 pr-[40px] pb-3 pl-[40px] rounded-[20px]  flex  items-center gap-3 border '>
                         <img className='h-full' src={user} alt="" />
-                        <input type="text" name="username" id="" placeholder='username'
-                            {...register("username", { required: true })}
+                        <input type="email" name="email" id="" placeholder='user email'
+                            {...register("email", { required: true })}
                         />
 
                     </div>
-                    {errors.username && <span className="text-red-500 mt-1">This name is required</span>}
+                    {errors.email && <span className="text-red-500 mt-1">This name is required</span>}
 
                     <div className=' mt-4 bg-white text-black pt-3 pr-[40px] pb-3 pl-[40px] rounded-[20px]  flex  items-center gap-3 border '>
                         <img className='h-full' src={lock} alt="" />

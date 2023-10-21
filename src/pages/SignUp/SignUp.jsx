@@ -3,12 +3,12 @@ import user from '../../assets/signUp/User.png'
 import email from '../../assets/signUp/email.png'
 import lock from '../../assets/signUp/LockKey.png'
 import { Link, useNavigate } from 'react-router-dom';
-import { set, useForm } from 'react-hook-form';
+import {  useForm } from 'react-hook-form';
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../providers/AuthProvider';
 
 const SignUp = () => {
-    const { handleLoading, registerNewUser, updateUser } = useContext(AuthContext);
+    const {  registerNewUser, updateUser } = useContext(AuthContext);
     const navigate = useNavigate();
     const [registerError, setRegisterError] = useState('');
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
@@ -18,37 +18,24 @@ const SignUp = () => {
         console.log(newUser);
 
         registerNewUser(data?.email, data?.password)
-            .then(res => {
-                console.log(res.user);
+            .then(() => {
+                // console.log(res.user);
                 updateUser(data?.username, data?.imgURL)
-                    .then((res) => {
-                        console.log('after user: ', res?.user);
+                    .then(() => {
+                        // console.log('after user: ', res?.user);
                         navigate('/');
                     })
                     .catch(error => {
-                        console.log(error?.message);
+                        // console.log(error?.message);
                         setRegisterError(error?.message);
                     })
 
             })
             .catch(error => {
-                console.log(error?.message);
+                // console.log(error?.message);
                 setRegisterError(error?.message);
             })
 
-
-        /* .then(res => res.json())
-        .then(data => {
-
-            handleLoading(false);
-            if (data?.insertedId > 0) {
-              
-                navigate('/signIn')
-            } else {
-                setRegisterError(data?.message)
-            }
-           
-        }) */
     }
 
     return (
