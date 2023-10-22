@@ -1,7 +1,7 @@
 import singUpHero from '../../assets/signUp/signUp_hero_img.png'
 import lock from '../../assets/signUp/LockKey.png'
-// import email from '../../assets/signUp/email.png'
-import user from '../../assets/signUp/User.png'
+import email_img from '../../assets/signUp/email.png'
+
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useContext, useState } from 'react';
@@ -42,7 +42,7 @@ const SignIn = () => {
 
                     {/* user email */}
                     <div className=' mt-4 bg-white text-black pt-3 pr-[40px] pb-3 pl-[40px] rounded-[20px]  flex  items-center gap-3 border '>
-                        <img className='h-full' src={user} alt="" />
+                        <img className='h-full' src={email_img} alt="" />
                         <input type="email" name="email" id="" placeholder='user email'
                             {...register("email", { required: true })}
                         />
