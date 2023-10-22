@@ -3,18 +3,19 @@ import user from '../../assets/signUp/User.png'
 import email from '../../assets/signUp/email.png'
 import lock from '../../assets/signUp/LockKey.png'
 import { Link, useNavigate } from 'react-router-dom';
-import {  useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../providers/AuthProvider';
+import axios from 'axios';
 
 const SignUp = () => {
-    const {  registerNewUser, updateUser } = useContext(AuthContext);
+    const { registerNewUser, updateUser } = useContext(AuthContext);
     const navigate = useNavigate();
     const [registerError, setRegisterError] = useState('');
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {
-        const newUser = { username: data.username, email: data.email, password: data.password, img: data.imgURL, owned_nfts: [], amount: 0, followed_artists: [] }
+        const newUser = { username: data.username, email: data.email, img: data.imgURL, owned_nfts: [], bided_nfts: [], amount: 0, followed_artists: [] }
         console.log(newUser);
 
         registerNewUser(data?.email, data?.password)
@@ -22,7 +23,14 @@ const SignUp = () => {
                 // console.log(res.user);
                 updateUser(data?.username, data?.imgURL)
                     .then(() => {
-                        // console.log('after user: ', res?.user);
+                        axios.post(`http://localhost:5001/users/`, newUser)
+                            .then(res => {
+                                console.log(res?.data);
+                            })
+                            .catch(error => {
+                                console.log(error?.message);
+                                setRegisterError(error?.message);
+                            })
                         navigate('/');
                     })
                     .catch(error => {

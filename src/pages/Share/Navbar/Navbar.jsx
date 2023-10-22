@@ -9,7 +9,7 @@ const Navbar = () => {
 
     const { logOut, user } = useContext(AuthContext);
   
-    console.log('user', user);
+    
     const handleLogOut = () => {
         logOut()
             .then(() => {
@@ -77,7 +77,10 @@ const Navbar = () => {
                             <div to='#' className=" lg:flex btn  rounded-[28px] border-0  font-semibold hover:bg-black hover:text-white
                 my-hover-effect
                 ">
-                                <img className='h-10 w-10 rounded-full' src={user?.photoURL}></img>
+                                <Link to={`/dashboard/user_home`}>
+                                <img className='h-10 w-10 rounded-full' src={user?.photoURL}
+                                ></img>
+                                </Link>
 
                             </div>
                             <div to='#' className="hidden lg:flex btn bg-[#A259FF] rounded-[20px] border-0 text-white font-semibold hover:bg-black hover:text-white

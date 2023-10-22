@@ -4,7 +4,7 @@
 
 
 .my-hover-effect {
-    @apply transition ease-in-out delay-75  hover:scale-95 duration-100;
+    @apply transition ease-in-out delay-75 hover:scale-95 duration-100;
 }
 
 .btn-hover {
@@ -13,4 +13,13 @@
 
 .my-container {
     @apply w-full lg:w-[1080px] mx-auto;
+}
+
+
+.active-route {
+    @apply h-[45px] w-[220px] rounded-lg text-white flex items-center text-base gap-3 px-4 font-semibold bg-[#A259FF]
+}
+
+.inactive-route {
+    @apply h-[45px] w-[220px] rounded-lg text-white flex items-center text-base gap-3 px-4 font-semibold transition ease-in-out hover:scale-110 hover:bg-[#A259FF] duration-150
 }
